@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/insturcciones.css">
+
+    <title>Como jugar</title>
+</head>
+<body>
+    <!--Sección principal-->
+    <main>
+        <!--Primera seccion donde se da la bienvenida al juego-->
+        <section id="bienvenida" class="seccion">
+            <img id="logo" src="./img/logo-matchup.png" alt="matchup">
+            <h1>¡Bienvenido a Marvel Match-Up!</h1>
+            <p>Sumérgete en el épico universo de Marvel y desafía tu memoria mientras enfrentas a héroes y villanos en una batalla de ingenio. El objetivo es simple: descubre las parejas formadas por los icónicos heroes y sus archienemigos</p>
+        </section>
+
+        <!--Segunda seccion donde se explica como se juega-->
+        <section id="como-jugar" class="seccion">
+            <h2>¿Cómo jugar?</h2>
+            <ul id="instrucciones">
+                <li><strong>Descubre las parejas: </strong>Haz click para voltear una carta y revela a un héroe o un villano. Luego, encuentra su contraparte: el héroe debe enfrentarse a su villano, ¡Y viceversa!</li>
+                <li><strong>Intentos limitados: </strong>Completa todas las parejas antes de consumir tus intentos para hacerte con la victoria</li>
+                <li><strong>Cartas sorpresa: </strong>¡Cuidado! En cada partida hay una carta especial oculta. Puede darte una ventaja o un desafío.</li>
+            </ul>
+        </section>
+
+        <!--Segunda seccion donde se muestran las cartas sorpresa y que consecuencias tiene cada una-->
+        <section id="cartas-sorpresa" class="seccion">
+            <!--Flex de cartas sorpresa, se explica cada una cuando se pasa por encima-->
+            <div id="panel-cartas">
+                <div class="carta-container">
+                    <img class="carta" src="./img/cartas/avengers.jpg" alt="avengers">
+                    <div class="explicacion">
+                        <h3>¡Avengers Assemble!</h3>
+                        <p>Esta carta te permite ver todo el mazo durante unos segundos</p>
+                    </div>
+                </div>
+                <div class="carta-container">
+                    <img class="carta" src="./img/cartas/shield.jpg" alt="shield">
+                    <div class="explicacion">
+                        <h3>S.H.I.E.L.D. te respalda</h3>
+                        <p>Esta carta te dará un intento más</p>
+                    </div>
+                </div>
+                <div class="carta-container">
+                    <img class="carta" src="./img/cartas/dead.jpg" alt="punish">
+                    <div class="explicacion">
+                        <h3>La justicia tiene un precio</h3>
+                        <p>Esta carta te consumirá un intento</p>
+                    </div>
+                </div>
+                <div class="carta-container">
+                    <img class="carta" src="./img/cartas/hydra.jpg" alt="hydra">
+                    <div class="explicacion">
+                        <h3>¡Hail Hydra!</h3>
+                        <p>Esta carta hará que se mezcle todo el tablero</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Boton para volver a la ventana de login-->
+            <div id="boton-volver">
+                <button id="volver">Volver</button>
+            </div>
+        </section>
+    </main>
+
+    <!--Pie de página-->
+    <footer>
+        <p>Marvel Matchup - Samuel Pampillón</p>
+    </footer>    
+
+    <script src="./js/intrucciones.js"></script>
+</body>
+</html>
