@@ -4,10 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/syle.css">
     
     <title>Login</title>
 </head>
 <body>
-    <h1>LOGIN</h1>
+    <!--Seccion pricnipal del login-->
+    <main>
+        <!--Logo prinicpal del juego-->
+        <div id="logo">
+            <img id="img-logo" src="./img/logo-matchup.png" alt="matchup">
+        </div>
+
+        <div id="error"></div>
+        <!--Contenedor donde se pediran los datos al usuario-->
+        <div id="datos-usuario">
+            <!--Primera parte de formulario de datos-->
+            <form action="juego.html">
+                <div class="form-item">
+                    <label for="nick">Nick</label>
+                    <input type="text" name="nick" id="nick">
+                </div>
+                <div class="form-item">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="form-item">
+                    <label for="number-cartas">Tablero</label>
+                    <select name="number-cartas" id="number-cartas">
+                        <option value="0">---</option>
+                        <option value="3">3x3</option>
+                        <option value="4">4x4</option>
+                        <option value="5">5x5</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="dificultad">Cartas</label>
+                    <select name="dificultad" id="dificultad">
+                        <option value="recluta">Recluta</option>
+                        <option value="heroe" selected>Heroe</option>
+                        <option value="vengador">Vengador</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <button type="submit" id="jugar">Jugar</button>
+                </div>
+            </form>
+
+            <!--Segunda parte de seleccion del avatar-->
+            <div id="avatar-selection">
+                <!--Avatar grande, el seleccionado por el usuario-->
+                <div id="selected-avatar">
+                    <img id="selected-avatar-img"src="./img/avatares/captain-avatar.png" alt="avatar">
+                </div>
+
+                <!--Grid de avatares que puede escoger el usuario-->
+                <div id="grid-avatares"> 
+                    <!--
+                        <img class="avatar" src="./img/avatares/captain-avatar.png" alt="avatar">
+                        <img class="avatar" src="./img/avatares/captain-avatar.png" alt="avatar">
+                    -->  
+                </div>
+            </div>
+        </div>
+
+        <!--Enlace a la pagina de instrucciones-->
+        <div id="instrucciones">
+            <a href="instructions.html">Leer las intrucciones del juego</a>
+        </div>
+    </main>
+
+    <!--Pie de página-->
+    <footer>
+        <p>Marvel Matchup - Samuel Pampillón</p>
+    </footer> 
+
+    <script src="./js/dataset.js"></script>
+    <script src="./js/datosUsuario.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 </html>

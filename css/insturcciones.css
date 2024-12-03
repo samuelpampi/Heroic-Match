@@ -27,8 +27,12 @@ body{
 
 ul li{
     list-style: none;
-    margin: 20px 70px 40px 50px;
+    margin: 20px 70px 0px 50px;
 
+}
+
+ul{
+    margin-bottom: 100px;
 }
 
 section{
@@ -138,7 +142,7 @@ h3{
 
 #boton-volver{
     width: 300px;
-    margin: 80px auto 0px auto;
+    margin: 80px auto;
 }
 
 button{

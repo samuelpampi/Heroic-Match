@@ -1,0 +1,153 @@
+/* ESTILOS GENERALES */
+
+/*
+Colores usados:
+    - Azul oscuro de fondo: #000a2e
+    - Texto claro: #fffcfc
+    - Resaltado rojo: #ff1b21
+    - Azul heroe: #0082f3
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    background-color: #000a2e;
+    color: #fffcfc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+main{
+    width: 900px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+form{
+    padding: 15px;
+    width: 400px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+label{
+    display: block;
+}
+
+input, select{
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    padding: 8px;
+    font-family: inherit;
+}
+
+option{
+    font-family: inherit;
+}
+
+button{
+    font-family: inherit;
+    background-color: #ff1b21;
+    color: #fffcfc;
+    font-weight: 500;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    transition: background-color 0.25s;
+}
+
+button:hover{
+    background-color: #c21319;
+}
+
+a{
+    text-decoration: none;    
+    color: #fffcfc;
+    transition: color 0.25s;
+}
+
+a:hover{
+    color: #0082f3;
+}
+
+footer{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/*SELECTORES DE ID Y CLASE*/
+
+#error{
+    color: #ff1b21;
+    padding: 15px;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+#img-logo{
+    display: block;
+    width: 500px;
+    margin: 20px auto 20px auto;
+}
+
+/*Datos usuario*/
+#datos-usuario{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#avatar-selection{
+    padding: 0px 15px 15px 15px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#grid-avatares{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5x;
+}
+
+#selected-avatar img{
+    height: 220px;
+}
+
+
+.avatar{
+    width: 76px;
+    cursor: pointer;
+}
+
+/*Seccion final, instrucciones y footer*/
+#instrucciones{
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 14px;
+}
