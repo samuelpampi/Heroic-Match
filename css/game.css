@@ -1,0 +1,185 @@
+/*SELECTORES GENERALES*/
+/*
+Colores usados:
+    - Azul oscuro de fondo: #000a2e
+    - Texto claro: #fffcfc
+    - Resaltado rojo: #ff1b21
+    - Azul heroe: #0082f3
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    background-color: #000a2e;
+    color: #fffcfc;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    justify-content: center;
+}
+
+button{
+    width: 100%;
+    height: 60px;
+    color: #fffcfc;
+    background-color: #ff1b21;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    transition: background-color 0.25s;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #c21319;
+}
+
+
+footer{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+/*SELECTORES DE ID Y CLASE*/
+
+/*Seccion del tablero*/
+#tablero-container{
+    width: 900px;
+    height: 600px;
+}
+
+#tablero{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    background-color: #000a2e;
+    border-radius: 5px;
+    width: 900px;
+    row-gap: 20px;
+    justify-items: center;
+    position: absolute;
+    z-index: 3;
+
+}
+
+#final{
+    width: 900px;
+    height: 600px;
+    position: absolute;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000a2ed8;
+}
+
+.carta-container{
+    width: 100px;
+    height: 182.617px;
+}
+
+.carta{
+    width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.1s;
+    position: absolute;
+}
+
+.dorso{
+    width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.1s;
+    position: absolute;
+}
+
+.carta:hover, .dorso:hover{
+    -webkit-box-shadow: 0px 0px 11px 1px rgba(255,255,255,1);
+    -moz-box-shadow: 0px 0px 11px 1px rgba(255,255,255,1);
+    box-shadow: 0px 0px 11px 1px rgba(255,255,255,1);
+}
+
+#final-logo{
+    width: 300px;
+}
+
+#final-msg{
+    font-size: 46px;
+    font-weight: 600;
+}
+
+/* EFECTO DE VOLTEO DE CARTAS */
+.carta-container {
+    perspective: 1000px;
+}
+
+.carta, .dorso{
+    backface-visibility: hidden; /*Para que no se vea la parte trasera*/
+    transition: transform 0.5s;
+}
+
+/*Posicion inical de las cartas, dorso normal, cara girada*/
+.carta {
+    transform: rotateY(180deg);
+}
+
+.dorso {
+    transform: rotateY(0);
+}
+
+/*Al activarse la clase, se giran las cartas (se invierten)*/
+.carta-container.flipped .carta {
+    transform: rotateY(0);
+}
+
+.carta-container.flipped .dorso {
+    transform: rotateY(180deg);
+}
+
+
+/*Seccion de usuario*/
+#contenedor-usuario{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#avatar{
+    width: 200px;
+}
+
+#usuario{
+    text-align: center;
+}
+
+#datos-juego{
+    margin-top: 70px;
+    padding: 30px;
+}
+
+#boton-volver{
+    padding: 0px 30px;
+}

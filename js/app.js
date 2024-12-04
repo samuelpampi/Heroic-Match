@@ -9,7 +9,7 @@ var avatarImg;
 var button;
 var error;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const nickRegex = /^[A-Za-z][A-Za-z0-9_]{4,}$/;
+const nickRegex = /^[A-Za-z][A-Za-z0-9_]{3,}$/;
 
 /** Recorre el diccionario de avatares de dataset par air añadiendolos de forma dinamica al grid */
 function rellenarAvatares(){

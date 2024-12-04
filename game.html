@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/game.css">
+
+    <title>Matchup</title>
+</head>
+<body>
+    
+    <main>
+
+        <div id="tablero-container">
+            <div id="tablero">
+                <!--Se rellenan las cartas de forma dinamica-->
+            </div>
+
+            <div id="final">
+                <img id="final-logo" src="./img/logo-matchup.png" alt="logo">
+                <p id="final-msg">!Has perdido!</p>
+            </div>
+        </div>
+
+
+        <div id="contenedor-usuario">
+            <div id="usuario">
+                <img id="avatar" src="./img/avatares/venom-avatar.png" alt="avatar">
+                <h2 id="nick-usuario">User_123</h2>
+            </div>
+
+            <div id="datos-juego">
+                <div id="intentos">
+                    <p>Intentos</p>
+                </div>
+                <div id="puntuacion">
+                    <p>Puntuacion</p>
+                </div>
+            </div>
+
+            <div id="boton-volver">
+                <button id="volver-jugar">Vovler a jugar</button>
+            </div>
+        </div>
+
+
+    </main>
+
+    <!--Pie de página-->
+    <footer>
+        <p>Marvel Matchup - Samuel Pampillón</p>
+    </footer> 
+
+    <script src="./js/dataset.js"></script>
+    <script src="./js/datosUsuario.js"></script>
+    <script src="./js/juego.js"></script>
+</body>
+</html>
