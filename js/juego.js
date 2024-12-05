@@ -8,6 +8,10 @@ var nick;
 var tablero;
 var cartasLevantadas = [];
 var cartasDescubiertas = [];
+var intentos;
+var  personajes;
+var btnJugar;
+var puntos;
 
 /**
  * Desordena el array que le pasemos
@@ -89,6 +93,21 @@ function extraerCartas(){
 function rellenarCampos(){
     nick.innerText = nickSession;
     avatar.src = avatarSession;
+
+    //Rellenar intentos en base a la dificultad
+    intentos = calcularIntentos();
+    document.getElementById("intentos").innerText = intentos;
+
+    actualizarPuntuacion();
+}
+
+
+/** Calcula los intentos en base a la dificultad */
+function calcularIntentos(){
+    console.log(intentos_dificultad);
+    let num_intentos = intentos_dificultad[parseInt(sizeSession)][difficultySession];
+    console.log(num_intentos);
+    return num_intentos;
 }
 
 
@@ -147,6 +166,96 @@ function voltearCarta(event){
 }
 
 
+/** Comprueba si las dos cartas levantadas son parejas, sino lo son las vuelve a girar */
+function comprobarParejas(){
+    console.log("COMPROBAR PAREJAS");
+    console.log(cartasLevantadas);
+
+    let carta1 = cartasLevantadas[0];
+    let carta2 = cartasLevantadas[1];
+
+    //Comprobamos si el valor de una es la otra o viceversa en el diccionario de parejas
+    if(parejas[carta1] == carta2 || parejas[carta2] == carta1){
+        console.log("SON PAREJA!!!");
+        //Guardar las cartas, dejarlas bloquadas para que no se giren y seguir con la ejecucion
+        cartasDescubiertas.push(carta1);
+        cartasDescubiertas.push(carta2);
+
+        //Limpiar la lista de cartas levantadas
+        cartasLevantadas = [];
+        actualizarPuntuacion();
+
+        //Comprobar fin del juego
+        console.log(cartasDescubiertas);
+        if(cartasDescubiertas.length == personajes){
+            finalizarJuego();
+        }
+
+    } else{
+        console.log("NO SON PAREJA!!!");
+
+        //Esperar 2 segundos y voltear las cartas
+        setTimeout(() => {
+            cartasLevantadas.forEach(cartaId => {
+                //Localizamos el contenedor padre (carta-container) por su ID
+                let cartaContainer = document.getElementById(`container-${cartaId}`);
+                
+                if (cartaContainer) {
+                    //Gira la carta
+                    cartaContainer.addEventListener('click', voltearCarta); //Volver a permitir volteo
+                    cartaContainer.classList.toggle('flipped');
+                    console.log("girar cartas");
+                }
+            });
+
+            //Limpiar la lista de cartas levantadas
+            cartasLevantadas = [];
+
+            //Perder un intento
+            intentos -= 1;
+            document.getElementById("intentos").innerText = intentos;
+            if(intentos == 0){
+                finalizarJuego();
+            }
+
+        }, 1000);
+    }    
+}
+
+
+/** Actualiza el numero de puntos */
+function actualizarPuntuacion(){
+    puntos = (cartasDescubiertas.length / 2); //Nº de parejas encontradas
+    document.getElementById("puntos").innerText = puntos;
+}
+
+/** Finaliza el juego, mostrando la pantalla final y el boton de volver a jugar */
+function finalizarJuego(){
+    console.log("FIN DEL JUEGO");
+    //Bloqueamos para que no se gire ninguna carta
+    prohibirVolteo();
+
+    //Mostrar ventana de fin
+    let mensaje = "";
+    if(cartasDescubiertas.length == personajes){ //Partida ganada
+        mensaje = "¡Has ganado!";
+    } else if(intentos == 0){
+        mensaje = "¡Has perdido!";
+    }
+
+    document.getElementById("final-msg").innerText = mensaje;
+    document.getElementById("final").style.zIndex = 5; 
+    document.getElementById("final").classList.toggle("fondo-final");
+
+    //Mostrar boton de jugar y darle funcionalidad
+    btnJugar.classList.toggle("visible");
+    btnJugar.addEventListener('click', event => {
+        location.reload();
+    })
+}
+
+
+
 /**
  * Esta funcion recibe la carta sorpresa que levanta el usuario y llama a la funcion correspondiente
  *
@@ -172,46 +281,6 @@ function usarCartaSorpresa(cartaID){
 }
 
 
-/** Comprueba si las dos cartas levantadas son parejas, sino lo son las vuelve a girar */
-function comprobarParejas(){
-    console.log("COMPROBAR PAREJAS");
-    console.log(cartasLevantadas);
-
-    let carta1 = cartasLevantadas[0];
-    let carta2 = cartasLevantadas[1];
-
-    //Comprobamos si el valor de una es la otra o viceversa en el diccionario de parejas
-    if(parejas[carta1] == carta2 || parejas[carta2] == carta1){
-        console.log("SON PAREJA!!!");
-        //Guardar las cartas, dejarlas bloquadas para que no se giren y seguir con la ejecucion
-        cartasDescubiertas.push(carta1);
-        cartasDescubiertas.push(carta2);
-
-        //Limpiar la lista de cartas levantadas
-        cartasLevantadas = [];
-
-    } else{
-        console.log("NO SON PAREJA!!!");
-
-        //Esperar 2 segundos y voltear las cartas
-        setTimeout(() => {
-            cartasLevantadas.forEach(cartaId => {
-                //Localizamos el contenedor padre (carta-container) por su ID
-                let cartaContainer = document.getElementById(`container-${cartaId}`);
-                
-                if (cartaContainer) {
-                    //Gira la carta
-                    cartaContainer.addEventListener('click', voltearCarta); //Volver a permitir volteo
-                    cartaContainer.classList.toggle('flipped');
-                    console.log("girar cartas");
-                }
-            });
-
-            //Limpiar la lista de cartas levantadas
-            cartasLevantadas = [];
-        }, 1000);
-    }    
-}
 
 
 /** Inicia las variables y eventos principales */
@@ -219,6 +288,8 @@ function iniciarEventos(){
     nick = document.getElementById("nick-usuario");
     avatar = document.getElementById("avatar");
     tablero = document.getElementById("tablero");
+    personajes = (parseInt(sizeSession) * 3) - 1;
+    btnJugar = document.getElementById("volver-jugar");
 
     //Rellenar datos usuario
     rellenarCampos();

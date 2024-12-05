@@ -72,4 +72,11 @@ parejas = {
     spiderman: "venom",
     thor: "loki",
     wolverine: "magneto"
-};
+}
+
+
+intentos_dificultad = {
+    "3": { recluta: 4, heroe: 3, vengador: 3 },
+    "5": { recluta: 14, heroe: 10, vengador: 7 },
+    "7": { recluta: 21, heroe: 15, vengador: 10 }
+}

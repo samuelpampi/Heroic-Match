@@ -59,6 +59,10 @@ footer{
     margin-top: 50px;
 }
 
+span{
+    margin-left: 15px;
+}
+
 
 /*SELECTORES DE ID Y CLASE*/
 
@@ -91,6 +95,10 @@ footer{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.4s;
+}
+
+.fondo-final{
     background-color: #000a2ed8;
 }
 
@@ -162,6 +170,7 @@ footer{
 /*Seccion de usuario*/
 #contenedor-usuario{
     width: 400px;
+    padding: 0px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -177,20 +186,31 @@ footer{
 
 #datos-juego{
     margin-top: 50px;
-    padding: 30px;
+    margin-bottom: 40px;
 }
 
 #mensaje-sorpresa{
-    color: #000a2e;
+    color: #ffdd1b;
+    visibility: hidden;
     padding-bottom: 30px;
     font-size: 16px;
-    transition: color 0.3s;
+    transition: visibility 0.3s;
+    opacity: 0; /*Para animacion*/
+    transition: opacity 0.3s ease;
 }
 
 #mensaje-sorpresa.oculto{
-    color: #ff1b21;
+    visibility: visible;
+    opacity: 1;
 }
 
-#boton-volver{
-    padding: 0px 30px;
+#volver-jugar{
+    visibility: hidden;
+    opacity: 0; /*Para animacion*/
+    transition: opacity 0.3s ease;
+}
+
+#volver-jugar.visible{
+    visibility: visible;
+    opacity: 1; /*Para animacion*/
 }
