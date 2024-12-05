@@ -181,12 +181,15 @@ function comprobarParejas(){
         cartasDescubiertas.push(carta1);
         cartasDescubiertas.push(carta2);
 
+        //Quitar las cartas del tablero
+        quitarCartaTablero(carta1);
+        quitarCartaTablero(carta2);
+
         //Limpiar la lista de cartas levantadas
         cartasLevantadas = [];
         actualizarPuntuacion();
 
         //Comprobar fin del juego
-        console.log(cartasDescubiertas);
         if(cartasDescubiertas.length == personajes){
             finalizarJuego();
         }
@@ -223,6 +226,19 @@ function comprobarParejas(){
 }
 
 
+/**
+ * Elimina una carta del tablero, ya que se ha descubierto
+ *
+ * @param {*} carta
+ */
+function quitarCartaTablero(carta){
+    console.log(carta);
+    let index = cartasTablero.findIndex(cartaTablero => cartaTablero.id == carta);
+    cartasTablero.splice(index, 1);
+    console.log(cartasTablero);
+}
+
+
 /** Actualiza el numero de puntos */
 function actualizarPuntuacion(){
     puntos = (cartasDescubiertas.length / 2); //Nº de parejas encontradas
@@ -256,21 +272,74 @@ function finalizarJuego(){
 
 
 
+//--------------------------------------------------------------------
+//ESTA SECCION SOLO CORRESPONDE A LAS ACCIONES DE LAS CARTAS SORPRESA
+//--------------------------------------------------------------------
+
 /**
  * Esta funcion recibe la carta sorpresa que levanta el usuario y llama a la funcion correspondiente
  *
  * @param {*} cartaID
  */
 function usarCartaSorpresa(cartaID){
-    let mensaje = "";
+    quitarCartaTablero(cartaID);
     switch (cartaID){
-        case "dead": mensaje = "Pierdes un intento!!"; break;
-        case "avengers": mensaje = "Vuelves a mirar las cartas!!"; break;
-        case "hydra": mensaje = "Se desordena el tablero!!"; break;
-        case "shield": mensaje = "Ganas un intento!!"; break;
-        default: mensaje = ""; break;
+        case "dead": cartaPunish(); break;
+        case "avengers": cartaAvengers(); break;
+        case "hydra": cartaAvengers(); break;
+        case "shield": cartaShield(); break;
+        default: break;
     }
+}
 
+
+/** CARTA AVENGERS: Voltea las cartas durante un tiempo, en funcion de la dificultad */
+function cartaAvengers(){
+    let mensaje = "Vuelves a mirar las cartas!!";
+    mostrarMensaje(mensaje);
+
+    //Volteamos todas las cartas del tablero (Son las que no estan descubiertas)
+    for(let carta of cartasTablero){
+        let containerID = `container-${carta.id}`;
+        document.getElementById(containerID).classList.toggle('flipped');
+    }  
+
+    let interval = parseInt(tiempo_dificultad[sizeSession][difficultySession]);
+
+    //Esperar X segundos y voltear las cartas
+    setTimeout(() => {       
+        //Volteamos todas las cartas del tablero (Son las que no estan descubiertas)
+        for(let carta of cartasTablero){
+            let containerID = `container-${carta.id}`;
+            document.getElementById(containerID).classList.toggle('flipped');
+        } 
+
+    }, interval*1000);
+
+}
+
+function cartaShield(){
+    let mensaje = "Ganas un intento!!";
+    mostrarMensaje(mensaje);
+
+    intentos += 1;
+    document.getElementById("intentos").innerText = intentos;   
+}
+
+function cartaPunish(){
+    let mensaje = "Pierdes un intento!!";
+    mostrarMensaje(mensaje);
+
+    intentos -= 1;
+    document.getElementById("intentos").innerText = intentos;   
+}
+
+function cartaHydra(){
+    let mensaje = "Se desordena el tablero!!";
+    mostrarMensaje(mensaje);
+}
+
+function mostrarMensaje(mensaje){
     document.getElementById("mensaje-sorpresa").innerText = mensaje;
     document.getElementById("mensaje-sorpresa").classList.toggle("oculto");
 
@@ -280,6 +349,7 @@ function usarCartaSorpresa(cartaID){
     }, 3000);
 }
 
+//--------------------------------------------------------------------
 
 
 

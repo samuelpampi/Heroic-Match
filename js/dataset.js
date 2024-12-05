@@ -80,3 +80,9 @@ intentos_dificultad = {
     "5": { recluta: 14, heroe: 10, vengador: 7 },
     "7": { recluta: 21, heroe: 15, vengador: 10 }
 }
+
+tiempo_dificultad = {
+    "3": { recluta: 3, heroe: 2, vengador: 1 },
+    "5": { recluta: 4, heroe: 3, vengador: 2 },
+    "7": { recluta: 5, heroe: 4, vengador: 3 }
+}
