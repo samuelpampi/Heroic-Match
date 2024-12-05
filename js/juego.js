@@ -80,7 +80,6 @@ function extraerCartas(){
     }
 
     //Añadimos la carta sorpresa
-    console.log(cartasSeleccionadas);
     cartasSeleccionadas.push(carta_sorpresa);
 
     //Desordenamos las cartas
@@ -207,7 +206,6 @@ function comprobarParejas(){
                     //Gira la carta
                     cartaContainer.addEventListener('click', voltearCarta); //Volver a permitir volteo
                     cartaContainer.classList.toggle('flipped');
-                    console.log("girar cartas");
                 }
             });
 
@@ -286,7 +284,7 @@ function usarCartaSorpresa(cartaID){
     switch (cartaID){
         case "dead": cartaPunish(); break;
         case "avengers": cartaAvengers(); break;
-        case "hydra": cartaAvengers(); break;
+        case "hydra": cartaHydra(); break;
         case "shield": cartaShield(); break;
         default: break;
     }
@@ -300,8 +298,12 @@ function cartaAvengers(){
 
     //Volteamos todas las cartas del tablero (Son las que no estan descubiertas)
     for(let carta of cartasTablero){
-        let containerID = `container-${carta.id}`;
-        document.getElementById(containerID).classList.toggle('flipped');
+        //Si la carta esta levantada no hacemos nada
+        if(!cartasLevantadas.includes(carta.id)){
+            let containerID = `container-${carta.id}`;
+            document.getElementById(containerID).classList.toggle('flipped');
+            document.getElementById(containerID).addEventListener('click', voltearCarta);
+        }
     }  
 
     let interval = parseInt(tiempo_dificultad[sizeSession][difficultySession]);
@@ -310,14 +312,19 @@ function cartaAvengers(){
     setTimeout(() => {       
         //Volteamos todas las cartas del tablero (Son las que no estan descubiertas)
         for(let carta of cartasTablero){
-            let containerID = `container-${carta.id}`;
-            document.getElementById(containerID).classList.toggle('flipped');
-        } 
+            //Si la carta esta levantada no hacemos nada
+            if(!cartasLevantadas.includes(carta.id)){
+                let containerID = `container-${carta.id}`;
+                document.getElementById(containerID).classList.toggle('flipped');
+                document.getElementById(containerID).addEventListener('click', voltearCarta);
+            }
+        }              
 
     }, interval*1000);
 
 }
 
+/** CARTA SHIELD: Te suma un intento */
 function cartaShield(){
     let mensaje = "Ganas un intento!!";
     mostrarMensaje(mensaje);
@@ -326,6 +333,7 @@ function cartaShield(){
     document.getElementById("intentos").innerText = intentos;   
 }
 
+/** CARTA PUNISH: Te resta un intento */
 function cartaPunish(){
     let mensaje = "Pierdes un intento!!";
     mostrarMensaje(mensaje);
@@ -334,11 +342,50 @@ function cartaPunish(){
     document.getElementById("intentos").innerText = intentos;   
 }
 
+/** Description placeholder */
 function cartaHydra(){
     let mensaje = "Se desordena el tablero!!";
     mostrarMensaje(mensaje);
+
+    //Ocultar las cartas levantadas que no esten descubiertas
+    for(let cartaLevantada of cartasLevantadas){
+        document.getElementById(`container-${cartaLevantada}`).addEventListener('click', voltearCarta); //Volver a permitir volteo
+        document.getElementById(`container-${cartaLevantada}`).classList.toggle('flipped');
+    }
+    cartasLevantadas = [];
+
+    //Desordenamos el array de las cartas del tablero, es decir, las que estan sin descubrir
+    cartasTablero = desordenar(cartasTablero);
+    let tableroIndex = 0;
+
+    //Recorremos todo el tablero
+    let tableroActual = document.getElementsByClassName("carta-container");
+    console.log("TABLERO ACTUAL");
+    console.log(cartasTablero);
+
+    for(let item of tableroActual){
+        //La carta está levantada???
+        if(!item.classList.contains("flipped")  && tableroIndex < cartasTablero.length ){
+            let newCard = cartasTablero[tableroIndex]; 
+
+            // Actualizamos los atributos del hijo, es decir, al imagen
+            let cartaImg = item.querySelector(".carta");
+            cartaImg.id = newCard.id;
+            cartaImg.src = newCard.img;
+
+            // También puedes ajustar el id del contenedor
+            item.id = `container-${newCard.id}`;
+            tableroIndex += 1;
+            
+        }
+    }
 }
 
+/**
+ * Muestra el mensaje que genera la carta sorpresa
+ *
+ * @param {*} mensaje
+ */
 function mostrarMensaje(mensaje){
     document.getElementById("mensaje-sorpresa").innerText = mensaje;
     document.getElementById("mensaje-sorpresa").classList.toggle("oculto");
