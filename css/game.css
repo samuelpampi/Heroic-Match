@@ -176,8 +176,19 @@ footer{
 }
 
 #datos-juego{
-    margin-top: 70px;
+    margin-top: 50px;
     padding: 30px;
+}
+
+#mensaje-sorpresa{
+    color: #000a2e;
+    padding-bottom: 30px;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+#mensaje-sorpresa.oculto{
+    color: #ff1b21;
 }
 
 #boton-volver{

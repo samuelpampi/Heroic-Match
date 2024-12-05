@@ -123,19 +123,56 @@ function voltearCarta(event){
     if(cartasLevantadas.length < 2){
         //Voltea la carta si no está volteada
         carta.classList.toggle('flipped');
-        //Añade la carta a la lista de volteadas
-        cartasLevantadas.push(cartaID);
         //Bloquear la carta para no volver a girarla hasta que se compruebe su pareja
         carta.removeEventListener('click', voltearCarta);
 
-        //Cuando se hayan levantado 2 cartas, comprobamos si son pareja
-        if(cartasLevantadas.length == 2){
-            comprobarParejas();
+        //Comprobamos si es una carta sorpresa
+        if(Object.keys(cartas_sorpresa).includes(cartaID)){
+            console.log("CARTA SORPRESA");
+            usarCartaSorpresa(cartaID);
+
+        } else{ //Si no lo es, comprobamos
+
+            //Añade la carta a la lista de volteadas
+            cartasLevantadas.push(cartaID);
+
+            //Cuando se hayan levantado 2 cartas, comprobamos si son pareja
+            if(cartasLevantadas.length == 2){
+                comprobarParejas();
+            }
         }
+
+        
     }
 }
 
 
+/**
+ * Esta funcion recibe la carta sorpresa que levanta el usuario y llama a la funcion correspondiente
+ *
+ * @param {*} cartaID
+ */
+function usarCartaSorpresa(cartaID){
+    let mensaje = "";
+    switch (cartaID){
+        case "dead": mensaje = "Pierdes un intento!!"; break;
+        case "avengers": mensaje = "Vuelves a mirar las cartas!!"; break;
+        case "hydra": mensaje = "Se desordena el tablero!!"; break;
+        case "shield": mensaje = "Ganas un intento!!"; break;
+        default: mensaje = ""; break;
+    }
+
+    document.getElementById("mensaje-sorpresa").innerText = mensaje;
+    document.getElementById("mensaje-sorpresa").classList.toggle("oculto");
+
+    //Esperar 3 segundos y borrar el mensaje
+    setTimeout(() => {
+        document.getElementById("mensaje-sorpresa").classList.toggle("oculto");
+    }, 3000);
+}
+
+
+/** Comprueba si las dos cartas levantadas son parejas, sino lo son las vuelve a girar */
 function comprobarParejas(){
     console.log("COMPROBAR PAREJAS");
     console.log(cartasLevantadas);
@@ -146,11 +183,34 @@ function comprobarParejas(){
     //Comprobamos si el valor de una es la otra o viceversa en el diccionario de parejas
     if(parejas[carta1] == carta2 || parejas[carta2] == carta1){
         console.log("SON PAREJA!!!");
+        //Guardar las cartas, dejarlas bloquadas para que no se giren y seguir con la ejecucion
+        cartasDescubiertas.push(carta1);
+        cartasDescubiertas.push(carta2);
+
+        //Limpiar la lista de cartas levantadas
+        cartasLevantadas = [];
+
     } else{
         console.log("NO SON PAREJA!!!");
-    }
 
-    
+        //Esperar 2 segundos y voltear las cartas
+        setTimeout(() => {
+            cartasLevantadas.forEach(cartaId => {
+                //Localizamos el contenedor padre (carta-container) por su ID
+                let cartaContainer = document.getElementById(`container-${cartaId}`);
+                
+                if (cartaContainer) {
+                    //Gira la carta
+                    cartaContainer.addEventListener('click', voltearCarta); //Volver a permitir volteo
+                    cartaContainer.classList.toggle('flipped');
+                    console.log("girar cartas");
+                }
+            });
+
+            //Limpiar la lista de cartas levantadas
+            cartasLevantadas = [];
+        }, 1000);
+    }    
 }
 
 
