@@ -12,6 +12,7 @@ var intentos;
 var  personajes;
 var btnJugar;
 var puntos;
+var numCartas;
 
 /**
  * Desordena el array que le pasemos
@@ -36,18 +37,23 @@ function desordenar(array) {
  * @returns {{}}
  */
 function extraerParejas() {
-    const num_cartas = sizeSession * 3; //El número total de cartas que se van a usar
-    const num_parejas = Math.floor(num_cartas / 2); //Número de parejas que se van a usar
+    let num_cartas = sizeSession * 3; //El número total de cartas que se van a usar
+    let num_parejas = Math.floor(num_cartas / 2); //Número de parejas que se van a usar
+
+    //Si el numero de cartas es par, debemos eliminar una pareja para meter cartas sorpresa
+    if(num_cartas%2 == 0){
+        num_parejas -= 1;
+    }
 
     //Obtener todas las claves de los héroes
-    const heroes = Object.keys(parejas);
+    let heroes = Object.keys(parejas);
 
     //Crear un diccionario para las parejas seleccionadas
-    const parejas_random = {};
+    let parejas_random = {};
 
     while (Object.keys(parejas_random).length < num_parejas) {
-        const random_index = Math.floor(Math.random() * heroes.length);
-        const hero = heroes[random_index]; // Seleccionar un héroe aleatorio
+        let random_index = Math.floor(Math.random() * heroes.length);
+        let hero = heroes[random_index]; // Seleccionar un héroe aleatorio
 
         // Si no hemos añadido ya esta pareja, la incluimos
         if (!parejas_random.hasOwnProperty(hero)) {
@@ -58,6 +64,17 @@ function extraerParejas() {
     return parejas_random;
 }
 
+
+/** Extrae una carta sorpresa aleatoria */
+function extraerCartaSorpresa(){
+    let random_index = Math.floor(Math.random() * Object.keys(cartas_sorpresa).length);
+    let key = Object.keys(cartas_sorpresa)[random_index];
+    let carta_sorpresa = cartas_sorpresa[key];
+
+    return carta_sorpresa;
+}
+
+
 /**
  * A partir de unas parejas extrae las cartas, una carta sorpresa aleatoria y mezcla las cartas del tablero
  *
@@ -67,11 +84,6 @@ function extraerCartas(){
     //Extraemos parejas de forma aleatoria en funcion del tamaño del tablero
     let parejas_random = extraerParejas();
 
-    //Extraemos una carta sorpresa aleatoria
-    let random_index = Math.floor(Math.random() * Object.keys(cartas_sorpresa).length);
-    let key = Object.keys(cartas_sorpresa)[random_index];
-    let carta_sorpresa = cartas_sorpresa[key];
-
     //Extraemos las cartas de las parejas
     let cartasSeleccionadas = [];
     for(let hero in parejas_random){
@@ -79,8 +91,16 @@ function extraerCartas(){
         cartasSeleccionadas.push(cartas[parejas_random[hero]]); //Buscamos la carta del villano
     }
 
-    //Añadimos la carta sorpresa
+    //Guardamos el numero de personajes del tablero (sin contar las cartas sorpresa)
+    personajes = cartasSeleccionadas.length; 
+
+    //Extraemos una carta sorpresa aleatoria y la añadimos a las cartas seleccionadas (si el tablero es par, debemos sacar dos)
+    let carta_sorpresa = extraerCartaSorpresa();
     cartasSeleccionadas.push(carta_sorpresa);
+    if((numCartas % 2) == 0){ //El tablero es par, sacar otra carta
+        carta_sorpresa = extraerCartaSorpresa();
+        cartasSeleccionadas.push(carta_sorpresa);
+    } 
 
     //Desordenamos las cartas
     cartasSeleccionadas = desordenar(cartasSeleccionadas);
@@ -215,7 +235,7 @@ function comprobarParejas(){
             //Perder un intento
             intentos -= 1;
             document.getElementById("intentos").innerText = intentos;
-            if(intentos == 0){
+            if(intentos <= 0){
                 finalizarJuego();
             }
 
@@ -405,8 +425,8 @@ function iniciarEventos(){
     nick = document.getElementById("nick-usuario");
     avatar = document.getElementById("avatar");
     tablero = document.getElementById("tablero");
-    personajes = (parseInt(sizeSession) * 3) - 1;
     btnJugar = document.getElementById("volver-jugar");
+    numCartas = parseInt(sizeSession)*3;
 
     //Rellenar datos usuario
     rellenarCampos();

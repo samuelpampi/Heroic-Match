@@ -77,12 +77,18 @@ parejas = {
 
 intentos_dificultad = {
     "3": { recluta: 4, heroe: 3, vengador: 3 },
-    "5": { recluta: 14, heroe: 10, vengador: 7 },
-    "7": { recluta: 21, heroe: 15, vengador: 10 }
+    "4": { recluta: 10, heroe: 8, vengador: 7 },
+    "5": { recluta: 14, heroe: 10, vengador: 8 },
+    "6": { recluta: 18, heroe: 13, vengador: 9 },
+    "7": { recluta: 21, heroe: 15, vengador: 10 },
+    "8": { recluta: 26, heroe: 21, vengador: 13 }
 }
 
 tiempo_dificultad = {
     "3": { recluta: 3, heroe: 2, vengador: 2 },
+    "4": { recluta: 3, heroe: 2, vengador: 2 },
     "5": { recluta: 4, heroe: 3, vengador: 2 },
-    "7": { recluta: 5, heroe: 4, vengador: 3 }
+    "6": { recluta: 4, heroe: 3, vengador: 2 },
+    "7": { recluta: 5, heroe: 4, vengador: 3 },
+    "8": { recluta: 5, heroe: 4, vengador: 3 },
 }
