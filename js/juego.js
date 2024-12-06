@@ -415,7 +415,13 @@ function iniciarEventos(){
     cartasTablero = extraerCartas();
     console.log(cartasTablero);
 
-    //Rellenar Tablero
+    //Establecer tamaño del tablero
+    let ancho = (parseInt(sizeSession)*(100+20)); //Aqui lo que hacemos es calcular el tamaño en base el tamaño y numero de cada carta + un espacio 
+    document.getElementById("tablero-container").style.width = `${ancho}px`;
+    document.getElementById("tablero").style.width = `${ancho}px`;
+    document.getElementById("final").style.width = `${ancho}px`;
+
+    //Rellenar Tablero    
     tablero.style.gridTemplateColumns = `repeat(${sizeSession}, 1fr)`; //Establecemos el tamaño del panel
     for(let carta of cartasTablero){
         let cartaHTML = `<div class="carta-container" id="container-${carta.id}">
